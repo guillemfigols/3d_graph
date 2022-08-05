@@ -1,3 +1,5 @@
+
+//  CODE for the modal
 var modalBtn = document.querySelector('.modal-btn');
 var modalBg = document.querySelector('.modal-bg');
 var modalClose = document.querySelector('.modal-close');
@@ -11,14 +13,7 @@ modalClose.addEventListener('click', function() {
 });
 
 
-
-
-
-
-
-
-
-
+//  Code for input local file 
 const input = 
 document.querySelector('input[type="file"]');
 input.addEventListener('change', function (e) {
@@ -31,3 +26,6 @@ input.addEventListener('change', function (e) {
     }
     reader.readAsText(input.files[0])
 }, false);
+
+
+

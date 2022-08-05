@@ -1,19 +1,3 @@
-// var myData = (function () {
-//     var myData = null;
-//     $.ajax({
-//         'async': false,
-//         'global': false,
-//         'url': 'dades.json',
-//         'dataType': "json",
-//         'success': function (data) {
-//             myData = data;
-//         }
-//     });
-//     return myData;
-// })(); 
-
-// console.log(myData)
-
 
 function getGraphDataSets() {
     const loadData = function(Graph) {
@@ -22,36 +6,21 @@ function getGraphDataSets() {
             .nodeLabel('id')
             .nodeAutoColorBy('group')
             .forceEngine('d3')
-            //.jsonUrl('dades.json')
             .graphData(data)
             .enableNodeDrag(false)
-            // myData.nodes.forEach(d => {
-            //     d.fx = d.x;
-            //     d.fy = d.y;
-            //     d.fz = d.z;
-            //   })
         };
-    
-
-
     return loadData
 }
 
 
 
+const Graph = ForceGraph3D({
+    extraRenderers: [new THREE.CSS2DRenderer()]
+})
+(document.getElementById("3d-graph"))
 
 
-let it = 0;
-const Graph = ForceGraph3D()
-	(document.getElementById("3d-graph"))
-    .onEngineTick( () => {
-        if (it == 0) {
-            console.log(Graph.graphData().nodes)
-        }
-        it++;
-    }
-        
-    )
+    
 
 
 let curDataSetIdx;
@@ -67,3 +36,25 @@ let toggleData;
 
 	
 })();
+
+//  function for the is checked option 
+
+function isChecked() {
+    if(document.getElementById("my-checkbox").checked){
+        Graph.resetProps();
+        Graph.nodeThreeObject(node => {
+            const nodeE1 = document.createElement('div');
+            nodeE1.textContent = node.id;
+            nodeE1.style.color = node.color;
+            nodeE1.className = 'node-label';
+            return new THREE.CSS2DObject(nodeE1);
+        });
+        Graph.nodeThreeObjectExtend(true);
+        dataSets(Graph);
+    }
+    else{
+        Graph.resetProps();
+        dataSets(Graph);
+    }
+}
+
